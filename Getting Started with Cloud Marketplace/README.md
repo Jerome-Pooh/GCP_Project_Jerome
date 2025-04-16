@@ -58,8 +58,8 @@ By completing this lab, you will:
 ### ✅ Task 2: Deploy a LAMP Stack from Cloud Marketplace
 
 1. In the Console, go to **Navigation Menu > Marketplace**.
-
 ![alt text](market.png)
+
 2. Search for **LAMP** and select **Bitnami package for LAMP**.
 3. Click **Get Started**, agree to terms, then click **Deploy**.
 ![alt text](lamp.png)
