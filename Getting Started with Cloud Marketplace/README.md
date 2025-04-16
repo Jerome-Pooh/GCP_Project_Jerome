@@ -58,12 +58,15 @@ By completing this lab, you will:
 ### ✅ Task 2: Deploy a LAMP Stack from Cloud Marketplace
 
 1. In the Console, go to **Navigation Menu > Marketplace**.
+![alt text](market.png)
 2. Search for **LAMP** and select **Bitnami package for LAMP**.
 3. Click **Get Started**, agree to terms, then click **Deploy**.
+![alt text](lamp.png)
 4. Configure:
    - **Zone:** Choose any available zone (e.g., `us-central1-a`)
    - **Machine Type:** `E2` Series → `e2-medium`
 5. Leave the rest as defaults and click **Deploy**.
+![alt text](lamp1.png)
 6. Wait for `lampstack-1 has been deployed` confirmation.
 
 ---
@@ -73,7 +76,9 @@ By completing this lab, you will:
 1. In the Console, navigate to:  
    `Deployments > lampstack-1 > Details`
 2. Click the **Site URL**.
+![alt text](lamp2.png)
 3. A new tab should show a **Congratulations** page, confirming Apache is live.
+![alt text](lamp3.png)
 
 > ⚠️ If you can't access the site:
 > - Wait 30 seconds and retry.
