@@ -31,7 +31,7 @@ By completing this lab, you will learn how to:
 - Locate the current project information (Project ID, Project Number, Name).
 - Explore multiple projects, including the special "Qwiklabs Resources" project.
 
-
+![alt text](<project info.png>)
 
 ### 3. Navigate Google Cloud Services
 - Use the Navigation menu to browse categories of Google Cloud products.
