@@ -25,7 +25,6 @@ By completing this lab, you will learn how to:
 - Start the lab session and sign into the Cloud Console with provided temporary credentials.
 - Understand the role of the Lab Details pane (Username, Password, Project ID).
 
-
 ![alt text](<cloud console.png>)
 
 ### 2. View and Understand Projects
