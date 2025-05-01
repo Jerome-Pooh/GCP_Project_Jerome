@@ -45,6 +45,7 @@ export ZONE=us-east1-c
 ### 2. Create a VM Using Google Cloud Console
 
 1. Navigate to: **Compute Engine > VM Instances**
+![alt text](VM.png)
 2. Click **Create Instance** and configure the following:
 
 | Field          | Value                    |
@@ -58,8 +59,14 @@ export ZONE=us-east1-c
 | Disk Type      | `Balanced persistent disk (10 GB)` |
 | Firewall       | ✅ Allow HTTP traffic     |
 
+![alt text](VM1.png)
+![alt text](VM2.png)
+![alt text](VM3.png)
+
 3. Click **Create** to launch the VM.
 4. After creation, click SSH next to the instance to connect.
+![alt text](VM4.png)
+
 ---
 
 ### 3. Install and Test NGINX
