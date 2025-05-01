@@ -25,13 +25,14 @@ By completing this lab, you will learn how to:
 - Start the lab session and sign into the Cloud Console with provided temporary credentials.
 - Understand the role of the Lab Details pane (Username, Password, Project ID).
 
+
 ![alt text](<cloud console.png>)
 
 ### 2. View and Understand Projects
 - Locate the current project information (Project ID, Project Number, Name).
 - Explore multiple projects, including the special "Qwiklabs Resources" project.
 
-![alt text](<project info.png>)
+
 
 ### 3. Navigate Google Cloud Services
 - Use the Navigation menu to browse categories of Google Cloud products.
