@@ -24,26 +24,31 @@ By completing this lab, you will learn how to:
 ### 1. Access the Cloud Console
 - Start the lab session and sign into the Cloud Console with provided temporary credentials.
 - Understand the role of the Lab Details pane (Username, Password, Project ID).
+
 ![alt text](<cloud console.png>)
 
 ### 2. View and Understand Projects
 - Locate the current project information (Project ID, Project Number, Name).
 - Explore multiple projects, including the special "Qwiklabs Resources" project.
+
 ![alt text](<project info.png>)
 
 ### 3. Navigate Google Cloud Services
 - Use the Navigation menu to browse categories of Google Cloud products.
+
 ![alt text](<cloud services.png>)
 
 ### 4. Manage Roles and Permissions
 - View existing IAM roles.
 - Grant a "Viewer" role to another user.
+
 ![alt text](<iam roles.png>)
 ![alt text](<iam roles1.png>)
 
 ### 5. Enable APIs and Services
 - Search for and enable the **Dialogflow API**.
 - Learn to access API documentation through the API Library.
+
 ![alt text](api.png)
 ![alt text](api1.png)
 
