@@ -45,7 +45,9 @@ export ZONE=us-east1-c
 ### 2. Create a VM Using Google Cloud Console
 
 1. Navigate to: **Compute Engine > VM Instances**
+
 ![alt text](VM.png)
+
 2. Click **Create Instance** and configure the following:
 
 | Field          | Value                    |
