@@ -51,8 +51,6 @@ gcloud config list project
 
 4. Click **Create**.
 
-![alt text](VMSERVER.png)
-
 ![alt text](VMSERVER1.png)
 ![alt text](VMSERVER2.png)
 
