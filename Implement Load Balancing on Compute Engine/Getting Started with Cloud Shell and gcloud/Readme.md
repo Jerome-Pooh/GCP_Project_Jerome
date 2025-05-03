@@ -160,8 +160,6 @@ Tag the VM:
 ```bash
 gcloud compute instances add-tags gcelab2 --tags http-server,https-server
 ```
-![alt text](images/CLIFirewallTag.png)
-
 Add firewall rule:
 
 ```bash
