@@ -23,17 +23,6 @@ Cloud Shell provides command-line access to Google Cloud resources. It runs on a
 
 ---
 
-## How to Start Your Lab
-
-1. Click **Start Lab**
-2. Copy the temporary **Username** and **Password** from the Lab Details
-3. Open the **Google Cloud Console** (preferably in Incognito Mode)
-4. Log in with lab credentials
-5. Accept Terms of Service (no 2FA or recovery options)
-6. The Cloud Console opens and your temporary project is ready
-
----
-
 ## Activate Cloud Shell
 
 Click the **Activate Cloud Shell** icon in the top-right of the Cloud Console. Authorize API access if prompted. Once activated, your environment is ready and authenticated.
@@ -64,9 +53,10 @@ Resources in Google Cloud reside in **regions** and **zones**:
 Set region and zone:
 
 ```bash
-gcloud config set compute/region REGION
-gcloud config set compute/zone ZONE
+gcloud config set compute/region us-east1
+gcloud config set compute/zone us-east1-c
 ```
+![alt text](images/region.png)
 
 Verify:
 
@@ -74,6 +64,7 @@ Verify:
 gcloud config get-value compute/region
 gcloud config get-value compute/zone
 ```
+![alt text](images/zone.png)
 
 Set environment variables:
 
