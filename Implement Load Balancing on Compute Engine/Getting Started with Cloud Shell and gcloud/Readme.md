@@ -73,6 +73,7 @@ export PROJECT_ID=$(gcloud config get-value project)
 export ZONE=$(gcloud config get-value compute/zone)
 echo -e "PROJECT ID: $PROJECT_ID\nZONE: $ZONE"
 ```
+![alt text](images/variables.png)
 
 ---
 
@@ -81,6 +82,7 @@ echo -e "PROJECT ID: $PROJECT_ID\nZONE: $ZONE"
 ```bash
 gcloud compute instances create gcelab2 --machine-type e2-medium --zone $ZONE
 ```
+![alt text](images/vmcli.png)
 
 Check instance:
 
@@ -103,6 +105,7 @@ List specific instance:
 ```bash
 gcloud compute instances list --filter="name=('gcelab2')"
 ```
+![alt text](images/CLIFilter.png)
 
 List all firewall rules:
 
