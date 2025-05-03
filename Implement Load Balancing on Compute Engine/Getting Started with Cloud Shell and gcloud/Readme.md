@@ -182,10 +182,18 @@ Test HTTP connection:
 ```bash
 curl http://$(gcloud compute instances list --filter=name:gcelab2 --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
 ```
-
 ---
 
 ## Additional Resources
 
 * [gcloud CLI Documentation](https://cloud.google.com/sdk/gcloud)
 * [Compute Engine Regions & Zones](https://cloud.google.com/compute/docs/regions-zones)
+
+## ✅ Completion
+
+At the end of this lab, you will have:
+
+* Provisioned a VM
+* Configured firewall rules
+* Installed a web server
+* Accessed the server over HTTP
