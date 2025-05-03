@@ -83,6 +83,7 @@ echo -e "PROJECT ID: $PROJECT_ID\nZONE: $ZONE"
 gcloud compute instances create gcelab2 --machine-type e2-medium --zone $ZONE
 ```
 ![alt text](images/vmcli.png)
+
 Check instance:
 
 ```bash
@@ -105,23 +106,27 @@ List specific instance:
 gcloud compute instances list --filter="name=('gcelab2')"
 ```
 ![alt text](images/CLIFilter.png)
+
 List all firewall rules:
 
 ```bash
 gcloud compute firewall-rules list
 ```
+![alt text](images/CLIFirewall.png)
 
 List default network firewall rules:
 
 ```bash
 gcloud compute firewall-rules list --filter="network='default'"
 ```
+![alt text](images/CLIFirewallFilter.png)
 
 Filter rules for ICMP traffic:
 
 ```bash
 gcloud compute firewall-rules list --filter="NETWORK:'default' AND ALLOW:'icmp'"
 ```
+![alt text](images/CLIFirewalIICMP.png)
 
 ---
 
@@ -144,6 +149,7 @@ Exit VM:
 ```bash
 exit
 ```
+![alt text](images/VMCLIconnect.png)
 
 ---
 
@@ -154,6 +160,7 @@ Tag the VM:
 ```bash
 gcloud compute instances add-tags gcelab2 --tags http-server,https-server
 ```
+![alt text](images/CLIFirewallTag.png)
 
 Add firewall rule:
 
@@ -163,12 +170,14 @@ gcloud compute firewall-rules create default-allow-http \
 --action=ALLOW --rules=tcp:80 --source-ranges=0.0.0.0/0 \
 --target-tags=http-server
 ```
+![alt text](images/CLIFirewallAddRule.png)
 
 List updated firewall rule:
 
 ```bash
 gcloud compute firewall-rules list --filter=ALLOW:'80'
 ```
+![alt text](images/CLIFirewallUpdate.png)
 
 Test HTTP connection:
 
