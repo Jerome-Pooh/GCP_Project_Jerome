@@ -83,7 +83,6 @@ echo -e "PROJECT ID: $PROJECT_ID\nZONE: $ZONE"
 gcloud compute instances create gcelab2 --machine-type e2-medium --zone $ZONE
 ```
 ![alt text](images/vmcli.png)
-
 Check instance:
 
 ```bash
@@ -106,7 +105,6 @@ List specific instance:
 gcloud compute instances list --filter="name=('gcelab2')"
 ```
 ![alt text](images/CLIFilter.png)
-
 List all firewall rules:
 
 ```bash
