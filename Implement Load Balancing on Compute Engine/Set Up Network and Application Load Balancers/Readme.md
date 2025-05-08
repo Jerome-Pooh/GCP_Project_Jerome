@@ -15,39 +15,39 @@ In this project, you will learn the differences between Network Load Balancers (
 * Deploy an Application Load Balancer with managed instance groups.
 * Test load balancer functionality.
 
-# Set Up Network and Application Load Balancers
+# Load Balancer Lab Guide
 
-This lab demonstrates how to set up both **Network Load Balancers (L4)** and **Application Load Balancers (L7)** on Google Cloud using Compute Engine VM instances, managed instance groups, and other core networking services.
+## Task 1: Set the Default Region and Zone for All Resources
+
+Setting a default region and zone simplifies the process of creating and managing Compute Engine resources.
+
+**Set the default region:**
+
+```bash
+gcloud config set compute/region Region
+```
+
+**Set the default zone:**
+
+```bash
+gcloud config set compute/zone Zone
+```
 
 ---
 
-## Task 1: Set the default region and zone for all resources
+## Task 2: Create Multiple Web Server Instances
 
-Set the default region:
+To simulate a load-balanced environment, create three VM instances and configure each with Apache HTTP Server.
 
-```bash
-gcloud config set compute/region REGION
-```
+### Create Web Server Instances
 
-Set the default zone:
+Each instance includes a startup script that installs Apache and creates a simple homepage.
 
-```bash
-gcloud config set compute/zone ZONE
-```
-
-> 💡 Learn more: [Compute Engine's Regions and Zones](https://cloud.google.com/compute/docs/regions-zones)
-
----
-
-## Task 2: Create multiple web server instances
-
-You’ll create 3 VMs, each with Apache installed and a unique home page.
-
-### Create VM: www1
+**Create VM `www1`:**
 
 ```bash
 gcloud compute instances create www1 \
-  --zone=ZONE \
+  --zone=Zone \
   --tags=network-lb-tag \
   --machine-type=e2-small \
   --image-family=debian-11 \
@@ -59,11 +59,11 @@ gcloud compute instances create www1 \
     echo "<h3>Web Server: www1</h3>" | tee /var/www/html/index.html'
 ```
 
-### Create VM: www2
+**Create VM `www2`:**
 
 ```bash
 gcloud compute instances create www2 \
-  --zone=ZONE \
+  --zone=Zone \
   --tags=network-lb-tag \
   --machine-type=e2-small \
   --image-family=debian-11 \
@@ -75,11 +75,11 @@ gcloud compute instances create www2 \
     echo "<h3>Web Server: www2</h3>" | tee /var/www/html/index.html'
 ```
 
-### Create VM: www3
+**Create VM `www3`:**
 
 ```bash
 gcloud compute instances create www3 \
-  --zone=ZONE \
+  --zone=Zone \
   --tags=network-lb-tag \
   --machine-type=e2-small \
   --image-family=debian-11 \
@@ -91,56 +91,68 @@ gcloud compute instances create www3 \
     echo "<h3>Web Server: www3</h3>" | tee /var/www/html/index.html'
 ```
 
-### Create a firewall rule
+### Create a Firewall Rule
+
+Allow HTTP traffic on port 80:
 
 ```bash
 gcloud compute firewall-rules create www-firewall-network-lb \
   --target-tags network-lb-tag --allow tcp:80
 ```
 
-### Verify VMs
+### Verify Instances
+
+List VM instances and obtain their external IP addresses:
 
 ```bash
 gcloud compute instances list
+```
+
+Use `curl` to confirm each web server is responding:
+
+```bash
 curl http://[IP_ADDRESS]
 ```
 
 ---
 
-## Task 3: Configure the load balancing service
+## Task 3: Configure the Load Balancing Service
 
-### Create static external IP
+Set up a Layer 4 (Network) Load Balancer to distribute traffic across your VMs.
+
+### Create a Static External IP Address
 
 ```bash
 gcloud compute addresses create network-lb-ip-1 \
-  --region REGION
+  --region Region
 ```
 
-### Create HTTP health check
+### Create a Legacy HTTP Health Check
 
 ```bash
 gcloud compute http-health-checks create basic-check
 ```
 
-### Create a target pool with health check
+### Create a Target Pool
 
 ```bash
 gcloud compute target-pools create www-pool \
-  --region REGION --http-health-check basic-check
+  --region Region \
+  --http-health-check basic-check
 ```
 
-### Add VMs to target pool
+### Add Instances to the Pool
 
 ```bash
 gcloud compute target-pools add-instances www-pool \
   --instances www1,www2,www3
 ```
 
-### Create forwarding rule
+### Create a Forwarding Rule
 
 ```bash
 gcloud compute forwarding-rules create www-rule \
-  --region REGION \
+  --region Region \
   --ports 80 \
   --address network-lb-ip-1 \
   --target-pool www-pool
@@ -148,32 +160,42 @@ gcloud compute forwarding-rules create www-rule \
 
 ---
 
-## Task 4: Send traffic to your instances
+## Task 4: Send Traffic to Your Instances
+
+### Retrieve the Forwarding Rule IP Address
 
 ```bash
-gcloud compute forwarding-rules describe www-rule --region REGION
+gcloud compute forwarding-rules describe www-rule --region Region
 ```
 
+### Access the External IP
+
 ```bash
-IPADDRESS=$(gcloud compute forwarding-rules describe www-rule --region REGION --format="json" | jq -r .IPAddress)
+IPADDRESS=$(gcloud compute forwarding-rules describe www-rule --region Region --format="json" | jq -r .IPAddress)
 echo $IPADDRESS
 ```
+
+### Send Traffic with `curl`
+
+Use a loop to test load balancing across instances:
 
 ```bash
 while true; do curl -m1 $IPADDRESS; done
 ```
 
-> Use `Ctrl+C` to stop the loop.
+Use `Ctrl + C` to stop.
 
 ---
 
 ## Task 5: Create an Application Load Balancer
 
-### Create instance template
+Use an external Application Load Balancer (Layer 7) to route traffic based on URL and content rules.
+
+### Create an Instance Template
 
 ```bash
 gcloud compute instance-templates create lb-backend-template \
-  --region=REGION \
+  --region=Region \
   --network=default \
   --subnet=default \
   --tags=allow-health-check \
@@ -190,14 +212,14 @@ gcloud compute instance-templates create lb-backend-template \
     systemctl restart apache2'
 ```
 
-### Create a managed instance group
+### Create a Managed Instance Group
 
 ```bash
 gcloud compute instance-groups managed create lb-backend-group \
-  --template=lb-backend-template --size=2 --zone=ZONE
+  --template=lb-backend-template --size=2 --zone=Zone
 ```
 
-### Create firewall rule for health checks
+### Allow Health Check Firewall Rule
 
 ```bash
 gcloud compute firewall-rules create fw-allow-health-check \
@@ -209,24 +231,30 @@ gcloud compute firewall-rules create fw-allow-health-check \
   --rules=tcp:80
 ```
 
-### Create global static IP
+### Reserve a Global IP Address
 
 ```bash
 gcloud compute addresses create lb-ipv4-1 \
-  --ip-version=IPV4 --global
-
-gcloud compute addresses describe lb-ipv4-1 \
-  --format="get(address)" --global
+  --ip-version=IPV4 \
+  --global
 ```
 
-### Create health check
+### Get the IP Address
+
+```bash
+gcloud compute addresses describe lb-ipv4-1 \
+  --format="get(address)" \
+  --global
+```
+
+### Create a Health Check
 
 ```bash
 gcloud compute health-checks create http http-basic-check \
   --port 80
 ```
 
-### Create backend service
+### Create a Backend Service
 
 ```bash
 gcloud compute backend-services create web-backend-service \
@@ -236,30 +264,30 @@ gcloud compute backend-services create web-backend-service \
   --global
 ```
 
-### Add backend instance group
+### Add Instance Group to Backend
 
 ```bash
 gcloud compute backend-services add-backend web-backend-service \
   --instance-group=lb-backend-group \
-  --instance-group-zone=ZONE \
+  --instance-group-zone=Zone \
   --global
 ```
 
-### Create URL map
+### Create a URL Map
 
 ```bash
 gcloud compute url-maps create web-map-http \
   --default-service web-backend-service
 ```
 
-### Create target HTTP proxy
+### Create Target HTTP Proxy
 
 ```bash
 gcloud compute target-http-proxies create http-lb-proxy \
   --url-map web-map-http
 ```
 
-### Create global forwarding rule
+### Create Global Forwarding Rule
 
 ```bash
 gcloud compute forwarding-rules create http-content-rule \
@@ -271,13 +299,29 @@ gcloud compute forwarding-rules create http-content-rule \
 
 ---
 
-## Task 6: Test traffic sent to your instances
+## Task 6: Test Traffic Sent to Your Instances
 
-1. In Google Cloud Console, search for **Load balancing**.
-2. Open **web-map-http**.
-3. Verify backend VMs are marked **Healthy**.
-4. Navigate to `http://<IP_ADDRESS>` in your browser.
-5. Refresh multiple times to see content from different backends.
+### Verify Load Balancer Health
+
+In the Google Cloud Console:
+
+1. Search for **Load balancing**.
+2. Select the **web-map-http** load balancer.
+3. Ensure VMs in the backend are marked **Healthy**.
+
+### Test the Load Balancer in a Web Browser
+
+Access:
+
+```
+http://[IP_ADDRESS]
+```
+
+Replace `[IP_ADDRESS]` with your global static external IP. The page should show:
+
+```
+Page served from: lb-backend-group-xxxx
+```
 
 ---
 
