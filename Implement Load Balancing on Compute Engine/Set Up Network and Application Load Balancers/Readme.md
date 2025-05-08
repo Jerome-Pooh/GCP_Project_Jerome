@@ -19,7 +19,7 @@ In this project, you will learn the differences between Network Load Balancers (
 
 ## Task 1: Set the Default Region and Zone for All Resources
 
-Setting a default region and zone simplifies the process of creating and managing Compute Engine resources.
+Setting a default region and zone simplifies the process of creating and managing Compute Engine resources by eliminating the need to specify them in each command.
 
 **Set the default region:**
 
@@ -27,21 +27,25 @@ Setting a default region and zone simplifies the process of creating and managin
 gcloud config set compute/region Region
 ```
 
+This command sets the default region where resources will be created.
+
 **Set the default zone:**
 
 ```bash
 gcloud config set compute/zone Zone
 ```
 
+This command sets the default zone within the region.
+
 ---
 
 ## Task 2: Create Multiple Web Server Instances
 
-To simulate a load-balanced environment, create three VM instances and configure each with Apache HTTP Server.
+To simulate a load-balanced environment, create three VM instances and configure each with Apache HTTP Server to serve a unique web page.
 
 ### Create Web Server Instances
 
-Each instance includes a startup script that installs Apache and creates a simple homepage.
+Each instance runs a startup script that installs Apache, starts the service, and creates a simple HTML page indicating the server name.
 
 **Create VM `www1`:**
 
@@ -58,6 +62,10 @@ gcloud compute instances create www1 \
     service apache2 restart
     echo "<h3>Web Server: www1</h3>" | tee /var/www/html/index.html'
 ```
+
+This creates a VM with a startup script to set up a basic web server.
+
+Repeat similarly for the other two instances:
 
 **Create VM `www2`:**
 
@@ -93,7 +101,7 @@ gcloud compute instances create www3 \
 
 ### Create a Firewall Rule
 
-Allow HTTP traffic on port 80:
+Allow HTTP traffic on port 80 to reach the VM instances:
 
 ```bash
 gcloud compute firewall-rules create www-firewall-network-lb \
@@ -102,25 +110,29 @@ gcloud compute firewall-rules create www-firewall-network-lb \
 
 ### Verify Instances
 
-List VM instances and obtain their external IP addresses:
+List VM instances and get their IP addresses:
 
 ```bash
 gcloud compute instances list
 ```
 
-Use `curl` to confirm each web server is responding:
+Use `curl` to test each web server:
 
 ```bash
 curl http://[IP_ADDRESS]
 ```
 
+Replace `[IP_ADDRESS]` with the external IP of each VM.
+
 ---
 
 ## Task 3: Configure the Load Balancing Service
 
-Set up a Layer 4 (Network) Load Balancer to distribute traffic across your VMs.
+Set up a Layer 4 Network Load Balancer to distribute incoming traffic among your web server VMs.
 
 ### Create a Static External IP Address
+
+Reserve a regional static IP:
 
 ```bash
 gcloud compute addresses create network-lb-ip-1 \
@@ -129,11 +141,15 @@ gcloud compute addresses create network-lb-ip-1 \
 
 ### Create a Legacy HTTP Health Check
 
+Checks the availability of backend instances:
+
 ```bash
 gcloud compute http-health-checks create basic-check
 ```
 
 ### Create a Target Pool
+
+Group the backend instances and associate the health check:
 
 ```bash
 gcloud compute target-pools create www-pool \
@@ -149,6 +165,8 @@ gcloud compute target-pools add-instances www-pool \
 ```
 
 ### Create a Forwarding Rule
+
+Define how traffic is directed to the load balancer:
 
 ```bash
 gcloud compute forwarding-rules create www-rule \
@@ -168,7 +186,9 @@ gcloud compute forwarding-rules create www-rule \
 gcloud compute forwarding-rules describe www-rule --region Region
 ```
 
-### Access the External IP
+### Access the External IP with a Script
+
+Store the IP address in a variable:
 
 ```bash
 IPADDRESS=$(gcloud compute forwarding-rules describe www-rule --region Region --format="json" | jq -r .IPAddress)
@@ -177,7 +197,7 @@ echo $IPADDRESS
 
 ### Send Traffic with `curl`
 
-Use a loop to test load balancing across instances:
+Test load balancing by repeatedly sending requests:
 
 ```bash
 while true; do curl -m1 $IPADDRESS; done
@@ -189,9 +209,11 @@ Use `Ctrl + C` to stop.
 
 ## Task 5: Create an Application Load Balancer
 
-Use an external Application Load Balancer (Layer 7) to route traffic based on URL and content rules.
+Use a Layer 7 Load Balancer to distribute traffic based on content.
 
 ### Create an Instance Template
+
+Defines the VM configuration:
 
 ```bash
 gcloud compute instance-templates create lb-backend-template \
@@ -220,6 +242,8 @@ gcloud compute instance-groups managed create lb-backend-group \
 ```
 
 ### Allow Health Check Firewall Rule
+
+Allow health check probes:
 
 ```bash
 gcloud compute firewall-rules create fw-allow-health-check \
@@ -305,19 +329,19 @@ gcloud compute forwarding-rules create http-content-rule \
 
 In the Google Cloud Console:
 
-1. Search for **Load balancing**.
+1. Go to **Load balancing**.
 2. Select the **web-map-http** load balancer.
-3. Ensure VMs in the backend are marked **Healthy**.
+3. Check that backend VMs are marked **Healthy**.
 
 ### Test the Load Balancer in a Web Browser
 
-Access:
+Visit:
 
 ```
 http://[IP_ADDRESS]
 ```
 
-Replace `[IP_ADDRESS]` with your global static external IP. The page should show:
+Replace `[IP_ADDRESS]` with your global static IP. The output should be:
 
 ```
 Page served from: lb-backend-group-xxxx
