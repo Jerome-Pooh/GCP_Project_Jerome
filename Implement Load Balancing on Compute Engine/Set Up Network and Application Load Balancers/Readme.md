@@ -37,6 +37,8 @@ gcloud config set compute/zone Zone
 
 This command sets the default zone within the region.
 
+![alt text](Images/Task1.png)
+
 ---
 
 ## Task 2: Create Multiple Web Server Instances
@@ -62,6 +64,7 @@ gcloud compute instances create www1 \
     service apache2 restart
     echo "<h3>Web Server: www1</h3>" | tee /var/www/html/index.html'
 ```
+![alt text](Images/task2-vm1.png)
 
 This creates a VM with a startup script to set up a basic web server.
 
@@ -82,6 +85,7 @@ gcloud compute instances create www2 \
     service apache2 restart
     echo "<h3>Web Server: www2</h3>" | tee /var/www/html/index.html'
 ```
+![alt text](Images/task2-vm2.png)
 
 **Create VM `www3`:**
 
@@ -98,6 +102,7 @@ gcloud compute instances create www3 \
     service apache2 restart
     echo "<h3>Web Server: www3</h3>" | tee /var/www/html/index.html'
 ```
+![alt text](Images/task2-vm3.png)
 
 ### Create a Firewall Rule
 
@@ -107,6 +112,7 @@ Allow HTTP traffic on port 80 to reach the VM instances:
 gcloud compute firewall-rules create www-firewall-network-lb \
   --target-tags network-lb-tag --allow tcp:80
 ```
+![alt text](Images/task2-FW-rule.png)
 
 ### Verify Instances
 
@@ -116,6 +122,8 @@ List VM instances and get their IP addresses:
 gcloud compute instances list
 ```
 
+![alt text](Images/task2-IP.png)
+
 Use `curl` to test each web server:
 
 ```bash
@@ -123,6 +131,8 @@ curl http://[IP_ADDRESS]
 ```
 
 Replace `[IP_ADDRESS]` with the external IP of each VM.
+
+![alt text](Images/task2-check.png)
 
 ---
 
