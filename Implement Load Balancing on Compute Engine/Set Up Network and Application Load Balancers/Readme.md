@@ -148,6 +148,7 @@ Reserve a regional static IP:
 gcloud compute addresses create network-lb-ip-1 \
   --region Region
 ```
+![alt text](Images/task3.png)
 
 ### Create a Legacy HTTP Health Check
 
@@ -156,6 +157,7 @@ Checks the availability of backend instances:
 ```bash
 gcloud compute http-health-checks create basic-check
 ```
+![alt text](Images/task3--HTTP.png)
 
 ### Create a Target Pool
 
@@ -166,6 +168,7 @@ gcloud compute target-pools create www-pool \
   --region Region \
   --http-health-check basic-check
 ```
+![alt text](Images/task3-pool.png)
 
 ### Add Instances to the Pool
 
@@ -173,6 +176,7 @@ gcloud compute target-pools create www-pool \
 gcloud compute target-pools add-instances www-pool \
   --instances www1,www2,www3
 ```
+![alt text](Images/task3-AddPool.png)
 
 ### Create a Forwarding Rule
 
@@ -185,6 +189,7 @@ gcloud compute forwarding-rules create www-rule \
   --address network-lb-ip-1 \
   --target-pool www-pool
 ```
+![alt text](Images/task3-ForwardingRule.png)
 
 ---
 
