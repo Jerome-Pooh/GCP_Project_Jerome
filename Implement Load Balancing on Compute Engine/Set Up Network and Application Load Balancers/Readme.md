@@ -200,6 +200,7 @@ gcloud compute forwarding-rules create www-rule \
 ```bash
 gcloud compute forwarding-rules describe www-rule --region Region
 ```
+![alt text](Images/task4-GetFW.png)
 
 ### Access the External IP with a Script
 
@@ -255,6 +256,7 @@ gcloud compute instance-templates create lb-backend-template \
 gcloud compute instance-groups managed create lb-backend-group \
   --template=lb-backend-template --size=2 --zone=Zone
 ```
+![alt text](Images/task5-CreateManageInstanceGroup1.png)
 
 ### Allow Health Check Firewall Rule
 
@@ -269,6 +271,7 @@ gcloud compute firewall-rules create fw-allow-health-check \
   --target-tags=allow-health-check \
   --rules=tcp:80
 ```
+![alt text](Images/task5-CheckFW.png)
 
 ### Reserve a Global IP Address
 
@@ -277,6 +280,7 @@ gcloud compute addresses create lb-ipv4-1 \
   --ip-version=IPV4 \
   --global
 ```
+![alt text](Images/task5-GlobalIP.png)
 
 ### Get the IP Address
 
@@ -292,6 +296,7 @@ gcloud compute addresses describe lb-ipv4-1 \
 gcloud compute health-checks create http http-basic-check \
   --port 80
 ```
+![alt text](Images/task5-HealthCheck.png)
 
 ### Create a Backend Service
 
@@ -361,6 +366,7 @@ Replace `[IP_ADDRESS]` with your global static IP. The output should be:
 ```
 Page served from: lb-backend-group-xxxx
 ```
+![alt text](Images/Task6.png)
 
 ---
 
