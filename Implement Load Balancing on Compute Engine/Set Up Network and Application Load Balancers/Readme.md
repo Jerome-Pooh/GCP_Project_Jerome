@@ -221,6 +221,8 @@ while true; do curl -m1 $IPADDRESS; done
 
 Use `Ctrl + C` to stop.
 
+![alt text](Images/task4-SendTraffic.png)
+
 ---
 
 ## Task 5: Create an Application Load Balancer
