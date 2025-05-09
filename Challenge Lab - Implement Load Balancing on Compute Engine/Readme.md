@@ -19,17 +19,6 @@ This project demonstrates a solution to the **Implement Load Balancing on Comput
 
 ---
 
-## Set the Default Region and Zone
-
-Set the default region and zone to simplify commands:
-
-```bash
-gcloud config set compute/region Region
-gcloud config set compute/zone Zone
-````
-
----
-
 ## Task 1: Create a Project Jumphost Instance
 
 You will use this instance to perform maintenance for the project.
@@ -39,9 +28,27 @@ Requirements:
 • Use an e2-micro machine type.
 Use the default image type (Debian Linux).
 
+### Assign Veriables
+
+```bash
+export INSTANCE=
+export FIREWALL=
+export ZONE=
+export REGION="${ZONE%-*}"
+```
+
+```bash
+gcloud compute instances create $INSTANCE \
+    --zone=$ZONE \
+    --machine-type=e2-micro
+```
+![alt text](Images/Task1.png)
+
 ---
 
 ## Task 2: Set Up an HTTP Load Balancer
+
+You will serve the site via nginx web servers, but you want to ensure that the environment is fault-tolerant. Create an HTTP load balancer with a managed instance group of 2 nginx web servers. Use the following code to configure the web servers; the team will replace this with their own configuration later.
 
 ### Create Startup Script
 
@@ -62,27 +69,25 @@ EOF
 ### Create an Instance Template
 
 ```bash
-gcloud compute instance-templates create Global-template \
-  --region=Region \
-  --network=default \
-  --subnet=default \
-  --tags=allow-health-check \
-  --machine-type=e2-medium \
-  --image-family=debian-11 \
-  --image-project=debian-cloud \
-  --metadata-from-file startup-script=startup.sh
+gcloud compute instance-templates create web-server-template \
+        --metadata-from-file startup-script=startup.sh \
+        --machine-type e2-medium \
+        --region $REGION
 ```
+![alt text](Images/task2.png)
 
 ---
 
 ### Create a Managed Instance Group
 
 ```bash
-gcloud compute instance-groups managed create lb-backend-group \
-  --template=Global-template \
-  --size=1 \
-  --zone=Zone
+gcloud compute instance-groups managed create web-server-group \
+        --base-instance-name web-server \
+        --size 2 \
+        --template web-server-template \
+        --region $REGION
 ```
+![alt text](Images/task2-1.png)
 
 ---
 
@@ -91,70 +96,77 @@ gcloud compute instance-groups managed create lb-backend-group \
 Allow HTTP traffic to reach the instances.
 
 ```bash
-gcloud compute firewall-rules create firewall-rule \
-  --target-tags network-lb-tag \
-  --allow tcp:80
+gcloud compute firewall-rules create $FIREWALL \
+        --allow tcp:80 \
+        --network default
 ```
+![alt text](Images/task2-2.png)
 
 ---
 
 ### Create a Health Check
 
 ```bash
-gcloud compute health-checks create http http-basic-check \
-  --port 80
+gcloud compute http-health-checks create http-basic-check
 ```
+![alt text](Images/task2-3.png)
 
 ---
+### Group Named ports 80
 
+```bash
+gcloud compute instance-groups managed \
+        set-named-ports web-server-group \
+        --named-ports http:80 \
+        --region $REGION
+```
+![alt text](Images/task2-4.png)
+
+---
 ### Create a Backend Service
 
 ```bash
-gcloud compute backend-services create web-backend-service \
-  --protocol=HTTP \
-  --port-name=http \
-  --health-checks=http-basic-check \
-  --global
+gcloud compute backend-services create web-server-backend \
+        --protocol HTTP \
+        --http-health-checks http-basic-check \
+        --global
 ```
+![alt text](Images/task2-5.png)
 
 ---
 
 ### Add Instance Group to Backend
 
 ```bash
-gcloud compute backend-services add-backend web-backend-service \
-  --instance-group=lb-backend-group \
-  --instance-group-zone=Zone \
-  --global
+gcloud compute backend-services add-backend web-server-backend \
+        --instance-group web-server-group \
+        --instance-group-region $REGION \
+        --global
 ```
+![alt text](Images/task2-6.png)
 
 ---
 
 ### Create a URL Map
 
 ```bash
-gcloud compute url-maps create web-map-http \
-  --default-service web-backend-service
+gcloud compute url-maps create web-server-map \
+        --default-service web-server-backend
 ```
+![alt text](Images/task2-7.png)
 
 ---
 
 ### Create Target HTTP Proxy
 
 ```bash
+ 
 gcloud compute target-http-proxies create http-lb-proxy \
-  --url-map web-map-http
+        --url-map web-server-map
 ```
+![alt text](Images/task2-8.png)
 
 ---
-
-### Reserve Global Static IP Address
-
-```bash
-gcloud compute addresses create lb-ipv4-1 \
-  --ip-version=IPV4 \
-  --global
-```
 
 ---
 
@@ -162,29 +174,15 @@ gcloud compute addresses create lb-ipv4-1 \
 
 ```bash
 gcloud compute forwarding-rules create http-content-rule \
-  --address=lb-ipv4-1 \
-  --global \
-  --target-http-proxy=http-lb-proxy \
-  --ports=80
+      --global \
+      --target-http-proxy http-lb-proxy \
+      --ports 80
 ```
+![alt text](Images/task2-9.png)
 
 ---
 
-## Test the Load Balancer
-
-To test load balancing and verify backend rotation:
-
-```bash
-gcloud compute addresses describe lb-ipv4-1 \
-  --format="get(address)" \
-  --global
-```
-
-Then:
-
-```bash
-while true; do curl -m1 http://<LB-IP>; done
-```
+gcloud compute forwarding-rules list
 
 ---
 
