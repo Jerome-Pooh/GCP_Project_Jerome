@@ -181,15 +181,13 @@ gcloud compute forwarding-rules create http-content-rule \
 ![alt text](Images/task2-9.png)
 
 ---
-
+```bash
 gcloud compute forwarding-rules list
-
+```
 ---
 
 ## Conclusion
 
 You have successfully implemented an HTTP Load Balancer in front of a managed instance group, using GCP best practices for resource provisioning and configuration. This lab demonstrates your ability to build scalable and reliable cloud infrastructure using Google Cloud Platform.
-
-```
 
 ---
