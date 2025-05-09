@@ -46,7 +46,7 @@ This repository documents the steps to complete the **Google Cloud Storage Qwikl
 
 ![alt text](images/kitten.png)
 
-1. Download this image above: *(save as `kitten.png`)*
+1. Download the image above: *(save as `kitten.png`)*
 2. Click the name of your bucket
 3. Click **Upload > Upload files**
 4. Select `kitten.png`
@@ -56,10 +56,22 @@ This repository documents the steps to complete the **Google Cloud Storage Qwikl
 
 1. Go to the **Permissions** tab of the bucket
 2. Click **Grant Access**
+
+![alt text](images/Task3.png)
+
 3. Under **New principals**, enter `allUsers`
 4. Select role: **Cloud Storage > Storage Object Viewer**
+
+![alt text](images/Task3.1.png)
+
 5. Click **Save**, then confirm **Allow public access**
+
+![alt text](images/Task3.2.png)
+
 6. Go back to **Objects**, confirm the file is marked as `Public to internet`
+
+![alt text](images/Task3.3.png)
+
 7. Click **Copy URL** to view the image in a browser
 
 Example:
@@ -67,6 +79,7 @@ Example:
 ```
 https://storage.googleapis.com/YOUR_BUCKET_NAME/kitten.png
 ```
+![alt text](images/Task3.4.png)
 
 ### 4. **Create Folders**
 
