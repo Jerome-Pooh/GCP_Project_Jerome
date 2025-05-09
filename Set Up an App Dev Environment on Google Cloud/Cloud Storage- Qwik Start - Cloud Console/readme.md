@@ -19,15 +19,19 @@ This repository documents the steps to complete the **Google Cloud Storage Qwikl
 ### 1. **Create a Bucket**
 
 1. Go to **Navigation menu > Cloud Storage > Buckets**
+![alt text](images/Task1.png)
 2. Click **+ Create**
 3. Fill in the required fields:
 
    * **Name**: Use your **Project ID** (it's globally unique)
    * **Location type**: Choose **Region**
+   ![alt text](images/Task1.1.png)
    * **Location**: Use the region given at lab start
    * **Storage class**: Standard
+   ![alt text](images/Task1.2.png)
    * **Access control**: Uniform
    * **Uncheck**: *Enforce public access prevention*
+   ![alt text](images/Task1.3.png)
 4. Click **Create**
 
 ### 2. **Upload an Object**
