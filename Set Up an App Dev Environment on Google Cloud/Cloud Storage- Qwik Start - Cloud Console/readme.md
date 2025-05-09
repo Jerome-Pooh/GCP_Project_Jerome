@@ -39,12 +39,14 @@ This repository documents the steps to complete the **Google Cloud Storage Qwikl
    * **Uncheck**: *Enforce public access prevention*
 
    ![alt text](images/Task1.3.png)
-   
+
 4. Click **Create**
 
 ### 2. **Upload an Object**
 
-1. Download this image: ![alt text](images/kitten.png) *(save as `kitten.png`)*
+![alt text](images/kitten.png)
+
+1. Download this image above: *(save as `kitten.png`)*
 2. Click the name of your bucket
 3. Click **Upload > Upload files**
 4. Select `kitten.png`
