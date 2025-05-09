@@ -87,12 +87,16 @@ https://storage.googleapis.com/YOUR_BUCKET_NAME/kitten.png
 2. Click `folder1` → **Create folder** again → name it `folder2`
 3. Click `folder2` → **Upload > Upload files** → select a file
 
+![alt text](images/Task4.png)
+
 ### 5. **Delete the Folder or Bucket**
 
 1. Return to the **buckets list**
 2. Select your bucket
 3. Click **Delete**
 4. Type `DELETE` to confirm and remove the bucket, including all objects and folders
+
+![alt text](images/Task5.png)
 
 ---
 
