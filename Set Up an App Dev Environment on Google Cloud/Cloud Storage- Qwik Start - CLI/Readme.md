@@ -1,3 +1,4 @@
+
 # ☁️ Cloud Storage: Qwik Start – CLI/SDK
 
 This project is based on the **Google Cloud Skill Boosts lab**: *Cloud Storage: Qwik Start – CLI/SDK*. In this lab, you'll use Google Cloud's CLI and SDK tools to interact with **Cloud Storage** for basic operations like creating buckets, uploading files, managing folders, and setting public access permissions.
@@ -52,7 +53,9 @@ All tasks are performed using Cloud Shell or your local CLI with the Google Clou
 
 ```bash
 gcloud storage buckets create gs://<YOUR-BUCKET-NAME>
-````
+```
+
+![alt text](Images/task1.png)
 
 > 🔍 View bucket settings via:
 > **Console > Navigation menu > Cloud Storage > \[Bucket Name] > Configuration**
@@ -70,6 +73,7 @@ curl https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_port
 gcloud storage cp ada.jpg gs://<YOUR-BUCKET-NAME>
 rm ada.jpg
 ```
+![alt text](Images/task2.png)
 
 ---
 
@@ -78,6 +82,7 @@ rm ada.jpg
 ```bash
 gcloud storage cp -r gs://<YOUR-BUCKET-NAME>/ada.jpg .
 ```
+![alt text](Images/task3.png)
 
 ---
 
