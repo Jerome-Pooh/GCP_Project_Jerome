@@ -168,6 +168,4 @@ Ada Lovelace is considered the **first computer programmer**. She worked with Ch
 * [gcloud CLI Reference](https://cloud.google.com/sdk/gcloud)
 * [gsutil Tool Guide](https://cloud.google.com/storage/docs/gsutil)
 
-```
-
 ---
