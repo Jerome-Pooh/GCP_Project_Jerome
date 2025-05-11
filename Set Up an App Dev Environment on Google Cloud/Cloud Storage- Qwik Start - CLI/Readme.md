@@ -54,7 +54,6 @@ All tasks are performed using Cloud Shell or your local CLI with the Google Clou
 ```bash
 gcloud storage buckets create gs://<YOUR-BUCKET-NAME>
 ```
-
 ![alt text](Images/task1.png)
 
 > 🔍 View bucket settings via:
@@ -95,6 +94,8 @@ gcloud storage cp gs://<YOUR-BUCKET-NAME>/ada.jpg gs://<YOUR-BUCKET-NAME>/image-
 ```
 
 Folders in Cloud Storage are **logical prefixes**; not actual directories.
+![alt text](Images/task4.png)
+![alt text](Images/task4.1.png)
 
 ---
 
@@ -103,6 +104,7 @@ Folders in Cloud Storage are **logical prefixes**; not actual directories.
 ```bash
 gcloud storage ls gs://<YOUR-BUCKET-NAME>
 ```
+![alt text](Images/task5.png)
 
 ---
 
@@ -111,6 +113,7 @@ gcloud storage ls gs://<YOUR-BUCKET-NAME>
 ```bash
 gcloud storage ls -l gs://<YOUR-BUCKET-NAME>/ada.jpg
 ```
+![alt text](Images/task6.png)
 
 ---
 
@@ -119,12 +122,14 @@ gcloud storage ls -l gs://<YOUR-BUCKET-NAME>/ada.jpg
 ```bash
 gsutil acl ch -u AllUsers:R gs://<YOUR-BUCKET-NAME>/ada.jpg
 ```
+![alt text](Images/task7.png)
 
 Verify via browser:
 
 ```
 https://storage.googleapis.com/<YOUR-BUCKET-NAME>/ada.jpg
 ```
+![alt text](Images/task7.1.png)
 
 ---
 
@@ -133,7 +138,7 @@ https://storage.googleapis.com/<YOUR-BUCKET-NAME>/ada.jpg
 ```bash
 gsutil acl ch -d AllUsers gs://<YOUR-BUCKET-NAME>/ada.jpg
 ```
-
+![alt text](Images/task8.png)
 ---
 
 ## 🧹 Task 9: Delete an Object
@@ -141,6 +146,7 @@ gsutil acl ch -d AllUsers gs://<YOUR-BUCKET-NAME>/ada.jpg
 ```bash
 gcloud storage rm gs://<YOUR-BUCKET-NAME>/ada.jpg
 ```
+![alt text](Images/task8.1.png)
 
 > Note: This deletes only the original file.
 > The file in `image-folder/` still exists unless deleted manually.
@@ -153,25 +159,6 @@ Ada Lovelace is considered the **first computer programmer**. She worked with Ch
 
 📷 **Image source citation**:
 [Ada Lovelace on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ada_Lovelace_portrait.jpg)
-
----
-
-## 📚 Quiz Highlights
-
-* ✅ Each bucket has a default storage class – **True**
-* ✅ An ACL defines who can access your buckets and objects – **True**
-* ✅ You can stop sharing by removing `AllUsers` permission – **True**
-
----
-
-## 📂 Final Structure
-
-```
-.
-├── image-folder/
-│   └── ada.jpg  # Copy of the public image
-└── README.md
-```
 
 ---
 
