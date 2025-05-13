@@ -1,8 +1,3 @@
-Here’s a comprehensive `README.md` file based on the lab **"Cloud IAM: Qwik Start"**, with detailed explanations added for each step.
-
----
-
-````markdown
 # 🔐 Cloud IAM: Qwik Start
 
 This guide walks you through the basics of **Google Cloud IAM (Identity and Access Management)** using the Google Cloud Console. You'll explore how to grant, restrict, and tailor access to specific services such as Cloud Storage using predefined IAM roles.
@@ -54,6 +49,8 @@ This guide walks you through the basics of **Google Cloud IAM (Identity and Acce
 
 5. Click **CANCEL** to exit.
 
+![alt text](Images/task1.png)
+
 ### 👀 Compare with Username 2
 
 1. Switch to the **Username 2** console.
@@ -67,6 +64,7 @@ This guide walks you through the basics of **Google Cloud IAM (Identity and Acce
      *“You need permissions for this action…”*  
      This illustrates how roles directly affect user capabilities.
 
+![alt text](Images/task1.1.png)
 ---
 
 ## ☁️ Task 2: Prepare Cloud Storage Bucket for Access Testing
@@ -93,6 +91,7 @@ This guide walks you through the basics of **Google Cloud IAM (Identity and Acce
 3. Click the three dots beside the uploaded file, select **Rename**, and rename it to:  
    `sample.txt`
 
+![alt text](Images/task2.png)
 ---
 
 ## 👁 Task 3: Verify Access as Viewer
@@ -126,6 +125,7 @@ This guide walks you through the basics of **Google Cloud IAM (Identity and Acce
 
 > 🔁 Refresh the page after a minute if the error hasn't appeared yet.
 
+![alt text](Images/task4.png)
 ---
 
 ## ✅ Task 5: Add Storage-Specific Access
@@ -143,6 +143,7 @@ This guide walks you through the basics of **Google Cloud IAM (Identity and Acce
 
 > This assigns **fine-grained access** to a specific resource type (Cloud Storage), rather than entire project access.
 
+![alt text](Images/task5.png)
 ---
 
 ## 🔍 Verify Access via Cloud Shell
@@ -167,6 +168,7 @@ gs://[YOUR_BUCKET_NAME]/sample.txt
 
 This confirms that even without **project-level access**, Username 2 can now view **Cloud Storage contents** thanks to the **Storage Object Viewer** role.
 
+![alt text](Images/task5.1.png)
 ---
 
 ## 🏁 Summary
