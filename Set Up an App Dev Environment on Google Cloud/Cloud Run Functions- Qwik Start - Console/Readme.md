@@ -37,6 +37,7 @@ Cloud Run functions are ideal for:
    * Open the Google Cloud Console.
    * From the Navigation menu (☰), go to **Cloud Run**.
 
+![alt text](Images/task1.png)
 2. **Start a new function:**
 
    * Click **WRITE A FUNCTION**.
@@ -54,12 +55,15 @@ Cloud Run functions are ideal for:
 
    * If prompted, click **ENABLE** to activate the necessary APIs.
 
+![alt text](Images/task1.1.png)
+![alt text](Images/task1.2.png)
 ---
 
 ## ⚙️ Task 2: Deploy the Function
+![alt text](Images/task2.png)
 
 1. In the **Source code** section, keep the default provided inline function:
-
+![alt text](Images/task2.png)
    ```javascript
    exports.helloHttp = (req, res) => {
      const message = req.body.message || 'Hello World!';
@@ -84,7 +88,7 @@ Cloud Run functions are ideal for:
      "message": "Hello World!"
    }
    ```
-
+![alt text](Images/task2.1.png)
 3. Click **Test the function**.
 
 4. Output should be:
@@ -95,6 +99,7 @@ Cloud Run functions are ideal for:
 
 5. For CLI testing, copy the provided curl command and run it in **Cloud Shell** to invoke the endpoint directly.
 
+![alt text](Images/task2.2.png)
 ---
 
 ## 📄 Task 4: View Logs
@@ -108,18 +113,6 @@ Cloud Run functions are ideal for:
    * Debug issues
    * Monitor usage
    * Validate the behavior of your function
-
----
-
-## ❓ Task 5: Test Your Understanding
-
-Answer the following questions to validate your learning:
-
-**Q1:** Cloud Run functions is a serverless execution environment for event-driven services on Google Cloud.
-✅ **True**
-
-**Q2:** Which type of trigger is used while creating Cloud Run functions in this lab?
-✅ **HTTPS**
 
 ---
 
