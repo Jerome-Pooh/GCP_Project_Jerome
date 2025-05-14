@@ -38,6 +38,7 @@ Cloud Run functions are ideal for:
    * From the Navigation menu (☰), go to **Cloud Run**.
 
 ![alt text](Images/task1.png)
+
 2. **Start a new function:**
 
    * Click **WRITE A FUNCTION**.
@@ -63,7 +64,7 @@ Cloud Run functions are ideal for:
 ![alt text](Images/task2.png)
 
 1. In the **Source code** section, keep the default provided inline function:
-![alt text](Images/task2.png)
+
    ```javascript
    exports.helloHttp = (req, res) => {
      const message = req.body.message || 'Hello World!';
@@ -89,6 +90,7 @@ Cloud Run functions are ideal for:
    }
    ```
 ![alt text](Images/task2.1.png)
+
 3. Click **Test the function**.
 
 4. Output should be:
