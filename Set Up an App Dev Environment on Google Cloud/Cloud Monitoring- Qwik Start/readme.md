@@ -41,6 +41,7 @@ This lab introduces **Google Cloud Monitoring and Logging** by guiding you throu
 
 A VM instance named `lamp-1-vm` is launched and is publicly accessible over HTTP.
 
+![alt text](Images/task1.png)
 ---
 
 ## ✅ Task 2: Install Apache2 Web Server
@@ -58,6 +59,7 @@ A VM instance named `lamp-1-vm` is launched and is publicly accessible over HTTP
 3. Return to VM Instances in the Console.
 4. Click the **External IP** to see the Apache default page.
 
+![alt text](Images/task2.png)
 ---
 
 ## ✅ Task 3: Create Monitoring Metrics Scope
@@ -67,6 +69,7 @@ A VM instance named `lamp-1-vm` is launched and is publicly accessible over HTTP
 
    * This enables Cloud Monitoring features such as metrics, dashboards, alerts, etc.
 
+![alt text](Images/task3.png)
 ---
 
 ## ✅ Task 4: Install Monitoring and Logging Agents
@@ -107,6 +110,8 @@ These agents collect system-level and application-level metrics and logs.
 1. In **Cloud Monitoring**, go to **Uptime Checks > Create Uptime Check**.
 2. Configure:
 
+![alt text](Images/task5.png)
+
    * **Protocol**: HTTP
    * **Resource Type**: Instance
    * **Instance**: `lamp-1-vm`
@@ -118,6 +123,8 @@ These agents collect system-level and application-level metrics and logs.
 
 > Uptime checks simulate periodic requests to your resource to verify it's available and responsive.
 
+![alt text](Images/task5.1.png)
+![alt text](Images/task5.2.png)
 ---
 
 ## ✅ Task 6: Create an Alerting Policy
@@ -127,6 +134,8 @@ These agents collect system-level and application-level metrics and logs.
 
    * Type **"Network traffic"**
    * Choose: `VM instance > Interface > Network traffic`
+
+   ![alt text](Images/task6.png)
 3. Configure conditions:
 
    * **Threshold**: Above `500`
@@ -149,6 +158,7 @@ These agents collect system-level and application-level metrics and logs.
 1. Navigate to **Monitoring > Dashboards > +Create Custom Dashboard**.
 2. Name it: `Cloud Monitoring LAMP Qwik Start Dashboard`.
 
+![alt text](Images/task7.png)
 ### Add Widget 1:
 
 * Click **+ Add Widget**
@@ -165,6 +175,7 @@ These agents collect system-level and application-level metrics and logs.
 
 > 📊 Dashboards help visualize resource health in real-time.
 
+![alt text](Images/task7.1.png)
 ---
 
 ## ✅ Task 8: View Logs in Logs Explorer
@@ -183,6 +194,7 @@ These agents collect system-level and application-level metrics and logs.
 
 > 📝 Cloud Logging captures detailed logs like system events, application logs, and agent-generated messages.
 
+![alt text](Images/task8.png)
 ---
 
 ## ✅ Task 9: Review Uptime and Alerts
@@ -195,7 +207,8 @@ These agents collect system-level and application-level metrics and logs.
 4. Check your email inbox for alert notifications.
 
    * ⚠️ Tip: Remove the email channel after the lab to stop receiving alerts.
-
+   
+![alt text](Images/task9.png)
 ---
 
 ## 🏁 Conclusion
